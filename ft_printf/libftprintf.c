@@ -17,6 +17,9 @@ int	check_conversion(char format, va_list args)
 {
 	if(specifier == 'c')
 		return (ft_putchar(va_arg(*args, int)));
+ if (specifier == 's')
+ {
+ }
 }
 
 int	ft_putchar(char c)
