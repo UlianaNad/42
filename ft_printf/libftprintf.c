@@ -13,13 +13,21 @@
 #include <stdarg.h>
 #include <unistd.h>
 
-int	check_conversion(char format, va_list args)
+int	check_conversion(char specifier, va_list *args)
 {
 	if(specifier == 'c')
 		return (ft_putchar(va_arg(*args, int)));
- if (specifier == 's')
- {
- }
+	else if (specifier == 's')
+		return (ft_putstr(va_arg(*args, char *)));
+	else if (specifier == 'p')
+		return (ft_putptr(va_arg(*args, void *)));
+	else if (specifier == 'd' || specifier == 'i')
+		return (ft_putnbr(va_arg(*args, int)));
+	else if (specifier == 'X' || specifier == 'x')
+		return (ft_puthex (va_arg (*args, unsigned int), specifier));
+	else if (specifier == '%')
+		return (ft_putchar('%'));
+	return (0);
 }
 
 int	ft_putchar(char c)
@@ -32,9 +40,53 @@ int	ft_putchar(char c)
 	return (1); 
 }
 
-int ft_printf(const char *, ...)
+int	ft_putstr (char *str)
+{
+	int	i;
+	int	result;
+
+	if (!str)
+		str = "(null)";
+	i = 0;
+	while (str[i])
+	{
+		result = write(1, &str[i], 1);
+		if (result == -1)
+			return (-1);
+		i++;
+	}
+	return(i);
+}
+
+int ft_putptr(void *ptr) { return (0); }
+int ft_putnbr(int n)
+{
+	int	res;
+	char	digit;
+	
+	if(n == -2147483648)
+		res += ft_putstr("-2147483648");
+		return (res);
+	if (n < 0)
+	{
+		res += ft_putchar(1, "-", 1);
+		n = -n;
+	}
+	if (n > 9)
+		res += ft_putnbr(n/10);
+	digit = n % 10 + '0';
+	res += ft_putchar(digit);
+	return (res);
+}
+
+return (0);
+}
+int ft_puthex(unsigned int n, char format) { return (0); }
+
+int ft_printf(const char *format, ...)
 {
 	va_list args;
+	int 	count;
 	
 	va_start(args, format);
 	if (!format)
@@ -44,11 +96,11 @@ int ft_printf(const char *, ...)
 		if(*format == '%' && *(format + 1))
 		{
 			format++;
-			count +=check_conversion(*format, args, &count);
+			count +=check_conversion(*format, args);
 		}
 		else
 		{
-			count += ft_putchar(*format, &count);
+			count += ft_putchar(*format);
 		}
 	format++;
 	}
