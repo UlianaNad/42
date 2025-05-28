@@ -8,7 +8,7 @@ OBJ = $(SRCS:.c=.o)
 
 CC = cc
 
-CFLAGS = -Wall -Wextra -Werror -D BUFFER_SIZE=42 
+CFLAGS = -Wall -Wextra -Werror  
 
 all: $(NAME)
 
