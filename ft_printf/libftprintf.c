@@ -60,7 +60,21 @@ int	ft_putstr (char *str)
 
 int	ft_putptr(void *ptr)
 {
-	return (0);
+	unsigned long	address;
+	int	count;
+	int	res;
+
+	address = (unsigned long) ptr;
+	count = 0;
+	/*res = write (1, "0x", 2);
+	if (res == -1)
+		return (-1);*/
+	count += ft_putstr("0x");
+	if (address == 0)
+		count += ft_putchar('0');
+	else
+		count += ft_puthex(address, 'x');
+	return (count);
 }
 
 int	ft_putnbr(int n)
