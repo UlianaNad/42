@@ -58,8 +58,12 @@ int	ft_putstr (char *str)
 	return(i);
 }
 
-int ft_putptr(void *ptr) { return (0); }
-int ft_putnbr(int n)
+int	ft_putptr(void *ptr)
+{
+	return (0);
+}
+
+int	ft_putnbr(int n)
 {
 	int	res;
 	char	digit;
@@ -79,11 +83,23 @@ int ft_putnbr(int n)
 	return (res);
 }
 
-return (0);
-}
-int ft_puthex(unsigned int n, char format) { return (0); }
+int	ft_puthex(unsigned int n, char format)
+{
+	char	*hex;
+	int	count;
 
-int ft_printf(const char *format, ...)
+	count = 0;
+	if (format == 'x')
+		hex = "0123456789abcdef";
+	else
+		hex = "0123456789ABCDEF";
+	if (n > 16)
+		count = ft_puthex(n / 16, format);
+	count += ft_putchar (hex[n % 16]);
+	return (count);
+}
+
+int	ft_printf(const char *format, ...)
 {
 	va_list args;
 	int 	count;
@@ -107,4 +123,3 @@ int ft_printf(const char *format, ...)
 	va_end(args);
 	return (count);
 }
-
