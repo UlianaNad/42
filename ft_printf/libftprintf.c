@@ -45,10 +45,9 @@ int	ft_putptr(void *ptr)
 {
 	unsigned long	address;
 	int	count;
-
+	
 	address = (unsigned long) ptr;
 	count = 0;
-	
 	if (address == 0)
 		count += ft_putstr("(nil)");
 	else
@@ -154,8 +153,7 @@ int	check_conversion(char specifier, va_list *args)
 		result = ft_puthex (va_arg (*args, unsigned int), specifier);
 	else if (specifier == '%')
 		result = ft_putchar('%');
-	else result = 0;
-	
+	else result = 0;	
 	if (result == -1)
 	    return (-1);
 	return (result);
@@ -179,8 +177,7 @@ int	libftprintf(const char *format, ...)
 			result = check_conversion(*format, &args);
 			if (result == -1)
 				return (-1);
-			count += result;
-			
+			count += result;	
 		}
 		else
 		{
